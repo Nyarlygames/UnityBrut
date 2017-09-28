@@ -10,7 +10,6 @@ EnemySpawn 4 10 100 100
 EnemySpawn 5 20 800 100
 EnemySpawn 6 30 100 1200
 EnemySpawn 7 40 800 1200
-IndestructibleWall 0 0 0 22 2 1 img/tileset/0
 IndestructibleWall 0 0 31 22 2 1 img/tileset/1
 IndestructibleWall 0 0 1 1 2 30 img/tileset/2
 IndestructibleWall 21 0 1 1 2 30 img/tileset/3

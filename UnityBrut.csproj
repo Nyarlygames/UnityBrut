@@ -86,7 +86,8 @@
     <Compile Include="Assets\SoloMode\GameController.cs" />
     <Compile Include="Assets\SoloMode\GameCreate.cs" />
     <Compile Include="Assets\SoloMode\Map.cs" />
-    <Compile Include="Assets\SoloMode\Player.cs" />
+    <Compile Include="Assets\SoloMode\PlayerController.cs" />
+    <Compile Include="Assets\SoloMode\PlayerGO.cs" />
     <Compile Include="Assets\SoloMode\Tile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
