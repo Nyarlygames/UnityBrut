@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Options/Options.unity
+- path: Assets/SoloMode/SoloMode.unity
   isLoaded: 1
   isActive: 1

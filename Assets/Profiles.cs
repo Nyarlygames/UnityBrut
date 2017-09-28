@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Text;
 using System.IO;
 using System;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Profiles : MonoBehaviour {
@@ -13,13 +14,12 @@ public class Profiles : MonoBehaviour {
     public int volumemus = 50;
     public int volumesfx = 80;
     public int volumeall = 100;
-    public string resolution = "1920 * 1080";
+    public string resolution = "1920x1080";
     public int quality = 0;
     public int difficulty = 0;
     public int brightness = 50;
-
-
-    // Use this for initialization
+    public int fullscreen = 0; // 0 windowed - 1 fullscreen - 2 windowed fullscreen
+    
     void Start () {
         if (File.Exists("Profile.prof"))
         {
@@ -29,22 +29,19 @@ public class Profiles : MonoBehaviour {
         {
             File.Create("Profile.prof").Dispose();
             string profiletext = "profilename=" + "Default" + "\n" + "lang=" + lang + "\n" + "volumemus=" + volumemus + "\n" + "volumesfx=" + volumesfx + "\n" + "volumeall=" + volumeall + "\n"
-                + "resolution=" + resolution + "\n" + "quality=" + quality + "\n" + "difficulty=" + difficulty + "\n" + "brightness=" + brightness + "\n";
-            File.WriteAllText("Default", profiletext);
+                + "resolution=" + resolution + "\n" + "quality=" + quality + "\n" + "difficulty=" + difficulty + "\n" + "brightness=" + brightness + "\n" + "fullscreen=" + fullscreen + "\n";
+            File.WriteAllText("Profile.prof", profiletext);
             Load("Profile.prof");
         }
-            //File.WriteAllText("C:\blahblah_yourfilepath\yourtextfile.txt", firstnameGUI + ", " + lastnameGUI);
     }
-
-    // to redo (previous code)
+    
         public void SaveToProfile(string filename)
         {
             string profiletext = "profilename=" + profilename + "\n" + "lang=" + lang + "\n" + "volumemus=" + volumemus + "\n" + "volumesfx=" + volumesfx + "\n" + "volumeall=" + volumeall + "\n"
-            + "resolution=" + resolution + "\n" + "quality=" + quality + "\n" + "difficulty=" + difficulty + "\n" + "brightness=" + brightness + "\n";
+            + "resolution=" + resolution + "\n" + "quality=" + quality + "\n" + "difficulty=" + difficulty + "\n" + "brightness=" + brightness + "\n" + "fullscreen=" + fullscreen + "\n";
             File.WriteAllText(filename, profiletext);
         }
-
-        // to redo (previous code)
+    
         public void Load(string fileName)
     {
         try
@@ -91,6 +88,9 @@ public class Profiles : MonoBehaviour {
                                 case "brightness":
                                     brightness = int.Parse(entries[1]);
                                     break;
+                                case "fullscreen":
+                                    fullscreen = int.Parse(entries[1]);
+                                    break;
                             }
                         }
                     }
@@ -103,20 +103,22 @@ public class Profiles : MonoBehaviour {
         {
             Debug.Log("Profile not found : " + e);
         }
-        GameObject.Find("Resolution").GetComponent<Dropdown>().options[0].text = resolution;
-        GameObject.Find("LabelReso").GetComponent<Text>().text = resolution;
-        GameObject.Find("Resolution").GetComponent<Dropdown>().value = 0;
-        GameObject.Find("Language").GetComponent<Dropdown>().options[0].text = lang;
-        GameObject.Find("LabelLang").GetComponent<Text>().text = lang;
-        GameObject.Find("Language").GetComponent<Dropdown>().value = 0;
-        GameObject.Find("Volumeall").GetComponent<Slider>().value = volumeall / 100.0f;
-        GameObject.Find("Volumesfx").GetComponent<Slider>().value = volumesfx / 100.0f;
-        GameObject.Find("Volumemus").GetComponent<Slider>().value = volumemus / 100.0f;
-        GameObject.Find("Brightness").GetComponent<Scrollbar>().value = brightness / 100.0f;
-        GameObject.Find("InputField").GetComponent<InputField>().text = profilename;
+        if (string.Compare(SceneManager.GetActiveScene().name, "Options") == 0)
+        {
+            GameObject.Find("Resolution").GetComponent<Dropdown>().options[0].text = resolution;
+            GameObject.Find("LabelReso").GetComponent<Text>().text = resolution;
+            GameObject.Find("Resolution").GetComponent<Dropdown>().value = 0;
+            GameObject.Find("Language").GetComponent<Dropdown>().options[0].text = lang;
+            GameObject.Find("LabelLang").GetComponent<Text>().text = lang;
+            GameObject.Find("Language").GetComponent<Dropdown>().value = 0;
+            GameObject.Find("Volumeall").GetComponent<Slider>().value = volumeall / 100.0f;
+            GameObject.Find("Volumesfx").GetComponent<Slider>().value = volumesfx / 100.0f;
+            GameObject.Find("Volumemus").GetComponent<Slider>().value = volumemus / 100.0f;
+            GameObject.Find("Brightness").GetComponent<Scrollbar>().value = brightness / 100.0f;
+            GameObject.Find("InputField").GetComponent<InputField>().text = profilename;
+        }
     }
-
-    // Update is called once per frame
+    
     void Update () {
 		
 	}

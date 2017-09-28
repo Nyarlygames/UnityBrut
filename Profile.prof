@@ -1,9 +1,10 @@
-profilename=qsdqs
+profilename=Default
 lang=Italian
-volumemus=100
-volumesfx=0
-volumeall=0
-resolution=720 * 576
+volumemus=50
+volumesfx=50
+volumeall=50
+resolution=800x600
 quality=0
 difficulty=0
-brightness=0
+brightness=50
+fullscreen=0

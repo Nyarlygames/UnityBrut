@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class OptionsController : MonoBehaviour {
 
     Profiles PlayerProf;
-	// Use this for initialization
+
 	void Start () {
 
         PlayerProf = gameObject.AddComponent<Profiles>();
@@ -22,7 +22,7 @@ public class OptionsController : MonoBehaviour {
         Resolution[] resolutions = Screen.resolutions;
         foreach (Resolution res in resolutions)
         {
-            valuesres.Add(res.width + " * " +  res.height);
+            valuesres.Add(res.width + "x" +  res.height);
         }
         GameObject.Find("Resolution").GetComponent<Dropdown>().ClearOptions();
         GameObject.Find("Resolution").GetComponent<Dropdown>().AddOptions(valuesres);
@@ -35,7 +35,6 @@ public class OptionsController : MonoBehaviour {
         GameObject.Find("InputField").GetComponent<InputField>().text = PlayerProf.profilename;
     }
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}

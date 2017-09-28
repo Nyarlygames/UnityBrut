@@ -78,13 +78,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LoadScene.cs" />
     <Compile Include="Assets\MainMenu\MenuController.cs" />
-    <Compile Include="Assets\MainMenu\PlayScript.cs" />
     <Compile Include="Assets\Options\OptionsController.cs" />
     <Compile Include="Assets\Options\OptionsScript.cs" />
-    <Compile Include="Assets\PlayMode\GameController.cs" />
-    <Compile Include="Assets\PlayMode\GameCreate.cs" />
     <Compile Include="Assets\Profiles.cs" />
+    <Compile Include="Assets\SoloMode\GameController.cs" />
+    <Compile Include="Assets\SoloMode\GameCreate.cs" />
+    <Compile Include="Assets\SoloMode\Map.cs" />
+    <Compile Include="Assets\SoloMode\Tile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
