@@ -7,6 +7,8 @@ using System.Text;
 public class Map : MonoBehaviour {
 
     public GameObject ground;
+    public List<GameObject> players = new List<GameObject>();
+    public List<GameObject> colliders = new List<GameObject>();
     public string filename = "";
     public string backgroundpic = "";
     public Tile[][] tiles;
@@ -20,7 +22,6 @@ public class Map : MonoBehaviour {
     //public Enemy[] enemies;
     //public Object[] objects;
     //public Merchant[] merchants;
-    //public Collider[] collidersmap;
     
 
     void Start () {
@@ -71,6 +72,7 @@ public class Map : MonoBehaviour {
                                         if (backgroundpic != "")
                                         {
                                             ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                                            ground.name = "Ground";
                                             ground.GetComponent<Renderer>().material.mainTexture = Resources.Load(backgroundpic) as Texture;
                                             ground.GetComponent<Transform>().localScale = new Vector3((tilesizex / ground.GetComponent<Renderer>().bounds.size.x)*sizex, 1, (tilesizez * sizez) / ground.GetComponent<Renderer>().bounds.size.z);//ground.GetComponent<Renderer>().bounds.size;
                                             ground.GetComponent<Transform>().position = new Vector3(ground.GetComponent<Renderer>().bounds.size.x / 2, 0, ground.GetComponent<Renderer>().bounds.size.z / 2);
@@ -80,10 +82,15 @@ public class Map : MonoBehaviour {
                                 case "IndestructibleWall":
                                     if ((tilesizex > 0) && (tilesizey > 0) && (tilesizez > 0))
                                         tiles[int.Parse(entries[2])][int.Parse(entries[1])] = new Tile();
-                                        tiles[int.Parse(entries[2])][int.Parse(entries[1])].initTile(entries, tilesizex, tilesizey, tilesizez); // type x y z scalex scaley scalez
+                                    tiles[int.Parse(entries[2])][int.Parse(entries[1])].initTile(entries, tilesizex, tilesizey, tilesizez); // type x y z scalex scaley scalez pic
+                                    colliders.Add(tiles[int.Parse(entries[2])][int.Parse(entries[1])].go);
+                                    break;
+                                case "Player":
+                                    tiles[int.Parse(entries[3])][int.Parse(entries[2])] = new Tile();
+                                    tiles[int.Parse(entries[3])][int.Parse(entries[2])].initTile(entries, tilesizex, tilesizey, tilesizez); // id x y z scalex scaley scalez pic
+                                    players.Add(tiles[int.Parse(entries[3])][int.Parse(entries[2])].go);
                                     break;
                                 default:
-                                 //   Debug.Log("failed");
                                     break;
                             }
                         }

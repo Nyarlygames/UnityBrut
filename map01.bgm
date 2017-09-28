@@ -2,19 +2,18 @@ BG img/backgroundGame
 Size 22 20 32
 TileSize 1 1 1
 TileSet 10 0 1 2 3 4 5 6 7 8 9
-Players 3
-Player 1 500 800
-Player 2 250 600
-Player 1 450 500
+Player 1 6 0 5 2 1 2 img/Players/p1
+Player 2 16 0 5 2 1 3 img/Players/player2
+Player 3 6 0 10 1 2 1 img/Players/player3
 EnemySpawns 4
 EnemySpawn 4 10 100 100
 EnemySpawn 5 20 800 100
 EnemySpawn 6 30 100 1200
 EnemySpawn 7 40 800 1200
-IndestructibleWall 0 0 0 22 4 1 img/tileset/0
-IndestructibleWall 0 0 31 22 4 1 img/tileset/1
-IndestructibleWall 0 0 1 1 4 30 img/tileset/2
-IndestructibleWall 21 0 1 1 4 30 img/tileset/3
+IndestructibleWall 0 0 0 22 2 1 img/tileset/0
+IndestructibleWall 0 0 31 22 2 1 img/tileset/1
+IndestructibleWall 0 0 1 1 2 30 img/tileset/2
+IndestructibleWall 21 0 1 1 2 30 img/tileset/3
 Tiles 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 Tiles 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1
 Tiles 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1

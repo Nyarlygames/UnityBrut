@@ -6,10 +6,9 @@ using System.Text;
 
 public class Tile : MonoBehaviour {
     
-    //Player Player;
     //GameObject object; tree, box, merchant ? as component script
     public GameObject go;
-    public int posx, posy = 0;
+    public int x, y, z = 0;
     public string type = "";
     public bool isWall = false;
     
@@ -19,20 +18,54 @@ public class Tile : MonoBehaviour {
     
     public void initTile(string[] entries, int tilesizex, int tilesizey, int tilesizez)
     {
-        int posx = int.Parse(entries[1]);
-        int posy = int.Parse(entries[2]);
-        int posz = int.Parse(entries[3]);
-        int scalex = int.Parse(entries[4]);
-        int scaley = int.Parse(entries[5]);
-        int scalez = int.Parse(entries[6]);
-        string texturepath = entries[7];
-
-        switch (entries[0]) {
+        int posx = 0;
+        int posy = 0;
+        int posz = 0;
+        int scalex = 0;
+        int scaley = 0;
+        int scalez = 0;
+        string texturepath = "";
+        switch (entries[0])
+        {
             case "IndestructibleWall":
+                posx = int.Parse(entries[1]);
+                posy = int.Parse(entries[2]);
+                posz = int.Parse(entries[3]);
+                scalex = int.Parse(entries[4]);
+                scaley = int.Parse(entries[5]);
+                scalez = int.Parse(entries[6]);
+                texturepath = entries[7];
                 go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                go.name = "IndestructibleWall [" + posx + "/" + posy + "]";
                 go.GetComponent<Transform>().localScale = new Vector3(scalex, scaley, scalez);
-                go.GetComponent<Transform>().position = new Vector3(posx + go.GetComponent<Renderer>().bounds.size.x/2, posy + go.GetComponent<Renderer>().bounds.size.y / 2, posz + go.GetComponent<Renderer>().bounds.size.z / 2);
+                go.GetComponent<Transform>().position = new Vector3(posx + go.GetComponent<Renderer>().bounds.size.x / 2, posy + go.GetComponent<Renderer>().bounds.size.y / 2, posz + go.GetComponent<Renderer>().bounds.size.z / 2);
                 go.GetComponent<Renderer>().material.mainTexture = Resources.Load(texturepath) as Texture;
+                x = posx;
+                y = posy;
+                z = posz;
+                break;
+            case "Player":
+                posx = int.Parse(entries[2]);
+                posy = int.Parse(entries[3]);
+                posz = int.Parse(entries[4]);
+                scalex = int.Parse(entries[5]);
+                scaley = int.Parse(entries[6]);
+                scalez = int.Parse(entries[7]);
+                texturepath = entries[8];
+
+                go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                go.name = "Player" + entries[1];
+
+                go.GetComponent<Transform>().localScale = new Vector3(scalex, scaley, scalez);
+                go.GetComponent<Transform>().position = new Vector3(posx + go.GetComponent<Renderer>().bounds.size.x / 2, posy + go.GetComponent<Renderer>().bounds.size.y / 2, posz + go.GetComponent<Renderer>().bounds.size.z / 2);
+                go.GetComponent<Renderer>().material.mainTexture = Resources.Load(texturepath) as Texture;
+
+                go.AddComponent<Player>();
+                go.GetComponent<Player>().id = int.Parse(entries[1]);
+
+                x = posx;
+                y = posy;
+                z = posz;
                 break;
             default:
                 break;
