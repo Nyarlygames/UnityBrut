@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
@@ -34,7 +32,7 @@ public class PlayerController : MonoBehaviour {
         playergo.AddComponent<PlayerGO>();
         playergo.name = "Player" + id;
 
-        playergo.GetComponent<PlayerGO>().setUp(x, y, z, scalex, scaley, scalez, texture, controltype);
+        playergo.GetComponent<PlayerGO>().setUp(id, x, y, z, scalex, scaley, scalez, texture, controltype);
         control = controltype;
     }
 

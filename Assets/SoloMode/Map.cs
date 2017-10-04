@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Text;
@@ -18,15 +17,14 @@ public class Map : MonoBehaviour {
     public int tilesizex = 0;
     public int tilesizey = 0;
     public int tilesizez = 0;
+    
     //public Player[] players;
     //public Enemy[] enemies;
     //public Object[] objects;
     //public Merchant[] merchants;
-    
 
     void Start () {
-        
-	}
+    }
     
     public void Load(string fileName)
     {
@@ -103,10 +101,10 @@ public class Map : MonoBehaviour {
          catch (System.Exception e) // need to check using 'cause system breaks random (conflict with unity random)
          {
              Debug.Log("Map parsing failed : " + e);
-         }
+        }
     }
     
+
     void Update () {
-        
     }
 }

@@ -1,0 +1,10 @@
+- healthbar follow unit
+- djikstra/pathfind for player
+- collision with other players
+- ennemies
+- spanwers (custom units & wave)
+- merchants
+- items
+- UI
+- damage
+- menu : add hits. one strike changes button/pnj ? 0 play > validate 1 options > validate 3 exit > validate. Or add random stuff like hearhtstone wheel ??

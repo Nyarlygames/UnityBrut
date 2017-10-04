@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
-using System.Text;
+﻿using UnityEngine;
 
 public class Tile : MonoBehaviour {
 
