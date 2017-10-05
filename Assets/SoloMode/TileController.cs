@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 
-public class Tile : MonoBehaviour {
+public class TileController : MonoBehaviour {
 
     //GameObject object; tree, box, merchant ? as component script
-    public GameObject go;
     public int x, y, z = 0;
     public string type = "";
-    public bool isWall = false;
-    
+    public bool isOpen = true;
+    public GameObject go;
+
     void Start()
     {
     }
     
-    public void initTile(string[] entries, int tilesizex, int tilesizey, int tilesizez)
+    public void initTile(string typefrom, string[] entries, int tilesizex, int tilesizey, int tilesizez)
     {
         int posx = 0;
         int posy = 0;
@@ -20,9 +20,20 @@ public class Tile : MonoBehaviour {
         int scalex = 0;
         int scaley = 0;
         int scalez = 0;
+        type = typefrom;
         string texturepath = "";
-        switch (entries[0])
+        switch (type)
         {
+            case "Filler":
+                posx = int.Parse(entries[1]);
+                posy = int.Parse(entries[2]);
+                posz = int.Parse(entries[3]);
+                scalex = int.Parse(entries[4]);
+                scaley = int.Parse(entries[5]);
+                scalez = int.Parse(entries[6]);
+                isOpen = false;
+                gameObject.name += " - " + entries[0];
+                break;
             case "IndestructibleWall":
                 posx = int.Parse(entries[1]);
                 posy = int.Parse(entries[2]);
@@ -30,13 +41,13 @@ public class Tile : MonoBehaviour {
                 scalex = int.Parse(entries[4]);
                 scaley = int.Parse(entries[5]);
                 scalez = int.Parse(entries[6]);
-                type = "IndestructibleWall";
-                isWall = true;
+                isOpen = false;
                 texturepath = entries[7];
                 go = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 go.AddComponent<Rigidbody>();
                 go.GetComponent<Rigidbody>().isKinematic = true;
-                go.name = "IndestructibleWall [" + posx + "/" + posy + "]";
+                go.name = "IndestructibleWall [" + posz + "/" + posx + "]";
+                gameObject.name += " - " + entries[0];
                 go.GetComponent<Transform>().localScale = new Vector3(scalex, scaley, scalez);
                 go.GetComponent<Transform>().position = new Vector3(posx + go.GetComponent<Renderer>().bounds.size.x / 2, posy + go.GetComponent<Renderer>().bounds.size.y / 2, posz + go.GetComponent<Renderer>().bounds.size.z / 2);
                 go.GetComponent<Renderer>().material.mainTexture = Resources.Load(texturepath) as Texture;
@@ -51,8 +62,8 @@ public class Tile : MonoBehaviour {
                 scalex = int.Parse(entries[5]);
                 scaley = int.Parse(entries[6]);
                 scalez = int.Parse(entries[7]);
-                type = "Player";
                 texturepath = entries[8];
+                gameObject.name += " - " + entries[0];
 
                 go = new GameObject("PlayerController" + entries[1]);
 
