@@ -78,83 +78,11 @@ public class PlayerGO : MonoBehaviour {
         }*/
     }
 
-    List<Vector3> GeneratePath(Vector3 tilestart, Vector3 bullseye, List<Vector3> path, int startweight)
-    {
-        Vector3 t_tile = new Vector3((int)(target.x / map.tilesizex), (int)target.y, (int)(target.z / map.tilesizez));
-        Vector3 decimalpart = new Vector3(target.x % 1, target.y % 1, target.z % 1);
-        int xposition = (int)((gameObject.GetComponent<Transform>().position.x) / map.tilesizex);
-        int yposition = (int)(((gameObject.GetComponent<Transform>().position.y) / map.tilesizey) + gameObject.GetComponent<Renderer>().bounds.size.y/2);
-        int zposition = (int)((gameObject.GetComponent<Transform>().position.z) / map.tilesizez);
-        int pathnum = 0;
-        Debug.Log("x " + xposition + " y " + yposition + " z " + zposition);
-        Vector3 p_tile = new Vector3((int)((gameObject.GetComponent<Transform>().position.x) / map.tilesizex),
-            (int)((gameObject.GetComponent<Transform>().position.y) / map.tilesizey),
-            (int)((gameObject.GetComponent<Transform>().position.z) / map.tilesizez));
-
-        List<List<Vector3>> generated = new List<List<Vector3>>();
-        List<Vector3> addedlist = new List<Vector3>();
-
-        //generated.Add()
-
-        Vector3 neighbour = Vector3.zero;
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                if ((i == 1) && (j == 1)) {
-                    // do nothing, player tile
-                }
-                else
-                {
-                    neighbour = new Vector3();
-                    neighbour.x = (p_tile.x + i) * map.tilesizex;
-                    neighbour.y = (p_tile.y) * map.tilesizey;
-                    neighbour.z = (p_tile.z + j) * map.tilesizez;
-                    //generated.Add(neighbour);
-                    GetAPath(neighbour, bullseye, generated, 1);
-                }
-
-            }
-        }/*
-        float[] maxweights;
-        int curpath = 0;
-        foreach(List<Vector3> potential in generated)
-        {
-            float maxweight = potential[potential.Count - 1].y;
-            if (potential[curpath].y == maxweight)
-            {
-                Debug.Log("Path " + curpath + " : " + potential[curpath] + " | maxweight : " + maxweight);
-                curpath++;
-            }
-        }*/
-        //for each generated seek target hit and return it
-        // for each generated, seek lowest (duplicates osef ?), return this list of vector3
-
-
-
-
-
-
-
-
-        //        generated.Add(addedlist);
-        //GeneratePath(neighbour, 1);
-
-        
-        /*for each neighbour, generate path with startweight+1, 
-         * generate returns first pos + next one
-         * addedtile = GeneratePath()
-         */
-
-
-        // Debug.Log("target : " + t + " decpart : " + decimalpart);
-        // Debug.Log("t_tile : " + t_tile);
-        return addedlist;
-    }
+    
 
     void Update()
     {
-        if (control == 1)
+        /*if (control == 1)
         { // mouse & keyboard 
             if (Input.GetMouseButtonDown(1))
             {
@@ -188,12 +116,12 @@ public class PlayerGO : MonoBehaviour {
                 /* check if on a new tile since last update to skip calculations ?
                  * creatematrix to get the new target
                  * move to it
-                 */
+                 *//*
                // Debug.Log(" Pos : " + gameObject.GetComponent<Transform>().position + " / Target1 : " + target + " / Target : " + resulttile);
                 //targetPath
                 gameObject.GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(gameObject.transform.position, target, step));
             }
-        }
+        }*/
     }
 
     void ClearMatrix()

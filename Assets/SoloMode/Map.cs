@@ -10,7 +10,6 @@ public class Map : MonoBehaviour {
     public List<GameObject> colliders = new List<GameObject>();
     public string filename = "";
     public string backgroundpic = "";
-    public Tile[][] tiles;
     public List<List<GameObject>> tilesgo;
     public int sizex = 0;
     public int sizey = 0;
@@ -63,7 +62,6 @@ public class Map : MonoBehaviour {
                                     sizey = int.Parse(entries[2]);
                                     sizez = int.Parse(entries[3]);
                                     tilesgo = new List<List<GameObject>>(); // tilesgo[z][x] and y=z
-                                    tiles = new Tile[sizez][];
                                     for (int i = 0; i < sizez; i++)
                                     {
                                         tilesgo.Add(new List<GameObject>());
@@ -71,8 +69,10 @@ public class Map : MonoBehaviour {
                                         {
                                             tilesgo[i].Add(new GameObject("Tile [" + i + ":" + j + "]"));
                                             tilesgo[i][j].AddComponent<TileController>();
+                                            tilesgo[i][j].GetComponent<TileController>().x = j;
+                                            tilesgo[i][j].GetComponent<TileController>().y = 0;
+                                            tilesgo[i][j].GetComponent<TileController>().z = i;
                                         }
-                                        tiles[i] = new Tile[sizex];
                                     }
                                     break;
                                 case "TileSize": // x, y, z
@@ -99,7 +99,7 @@ public class Map : MonoBehaviour {
 
                                     /*   tilesgo[int.Parse(entries[3])][int.Parse(entries[1])] = new GameObject("Tile [" + int.Parse(entries[1]) + ":" + int.Parse(entries[3]) + "]");
                                        tilesgo[int.Parse(entries[3])][int.Parse(entries[1])].AddComponent<Tile>();*/
-                                    tilesgo[int.Parse(entries[3])][int.Parse(entries[1])].GetComponent<TileController>().initTile("IndestructibleWall", entries, tilesizex, tilesizey, tilesizez);
+                                    tilesgo[int.Parse(entries[3])][int.Parse(entries[1])].GetComponent<TileController>().initTile("IndestructibleWall", entries, tilesizex, tilesizey, tilesizez, sizex*sizez);
                                     for (int i = 0; i < int.Parse(entries[6]); i++)
                                     {
                                         for (int j = 0; j < int.Parse(entries[4]); j++)
@@ -118,16 +118,14 @@ public class Map : MonoBehaviour {
                                                 fillerwall[4] = entries[4];
                                                 fillerwall[5] = entries[5];
                                                 fillerwall[6] = entries[6];
-                                                tilesgo[(int.Parse(entries[3])) + i][(int.Parse(entries[1])) + j].GetComponent<TileController>().initTile("Filler", fillerwall, tilesizex, tilesizey, tilesizez);
+                                                tilesgo[(int.Parse(entries[3])) + i][(int.Parse(entries[1])) + j].GetComponent<TileController>().initTile("Filler", fillerwall, tilesizex, tilesizey, tilesizez, sizex * sizez);
                                             }
                                         }
                                     }
+                                    colliders.Add(tilesgo[int.Parse(entries[3])][int.Parse(entries[1])].GetComponent<TileController>().go);
                                     break;
                                 case "Player":
-                                    // tiles[int.Parse(entries[3])][int.Parse(entries[2])] = new Tile();
-                                    //  tiles[int.Parse(entries[3])][int.Parse(entries[2])].initTile(entries, tilesizex, tilesizey, tilesizez); // id x y z scalex scaley scalez pic
-                                    // players.Add(tiles[int.Parse(entries[3])][int.Parse(entries[2])].go);
-                                    tilesgo[int.Parse(entries[4])][int.Parse(entries[2])].GetComponent<TileController>().initTile("Player", entries, tilesizex, tilesizey, tilesizez);
+                                    tilesgo[int.Parse(entries[4])][int.Parse(entries[2])].GetComponent<TileController>().initTile("Player", entries, tilesizex, tilesizey, tilesizez, sizex * sizez);
 
                                       for (int i = 0; i < int.Parse(entries[7]); i++)
                                       {
@@ -147,7 +145,7 @@ public class Map : MonoBehaviour {
                                                   fillerwall[4] = entries[4];
                                                   fillerwall[5] = entries[5];
                                                   fillerwall[6] = entries[6];
-                                                  tilesgo[(int.Parse(entries[4])) + i][(int.Parse(entries[2])) + j].GetComponent<TileController>().initTile("Filler", fillerwall, tilesizex, tilesizey, tilesizez);
+                                                  tilesgo[(int.Parse(entries[4])) + i][(int.Parse(entries[2])) + j].GetComponent<TileController>().initTile("Filler", fillerwall, tilesizex, tilesizey, tilesizez, sizex * sizez);
                                               }
                                           }
                                       }
@@ -170,48 +168,8 @@ public class Map : MonoBehaviour {
          {
     
         }
-        FillTiles();
     }
-
-    void FillTiles()
-    {
-        if (tiles != null)
-        {
-            for (int yr = 0; yr < sizey; yr++)
-            {
-                for (int xr = 0; xr < sizex; xr++)
-                {
-                    /* if ((tiles[yr].Equals(null) == false) && (tiles[yr][xr].Equals(null) == true))
-                     {
-                         //Debug.Log("emptyTile : " + xr + ":" + yr);
-                         tiles[yr][xr] = new Tile();
-                         tiles[yr][xr].type = "Empty";
-                         tiles[yr][xr].isWall = false;
-                         tiles[yr][xr].x = xr;
-                         tiles[yr][xr].z = yr;
-                         tiles[yr][xr].y = 0;
-                     }
-                     else
-                     {
-                         if (string.Compare(tiles[yr][xr].type, "") != 0)
-                         {
-                             //Debug.Log("emptyTile : " + xr + ":" + yr);
-                         }
-                         Debug.Log(xr + ":" + yr + " : is wall => " + tiles[yr][xr].isWall);
-                     }*/
-                     //if (tiles[yr][xr] == null)
-                     //   Debug.Log(xr + ":" + yr + " :  => " + "notnul");
-                }
-
-            }
-            DrawCollisions();
-        }
-    }
-
-    void DrawCollisions()
-    {
-
-    }
+    
 
     void Update () {
     }
