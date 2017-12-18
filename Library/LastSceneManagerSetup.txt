@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/SoloMode/SoloMode.unity
+- path: Assets/SolidGore/Solidgore.unity
   isLoaded: 1
   isActive: 1
