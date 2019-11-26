@@ -17,7 +17,6 @@ public class WispController : MonoBehaviour {
         pt = gameObject.GetComponent<Transform>();
         prb = gameObject.GetComponent<Rigidbody>();
         pmat = Resources.Load("img/Players/Materials/player2") as Material;
-        //pnav = gameObject.GetComponent<NavMeshAgent>();
 
     }
 	
@@ -31,13 +30,9 @@ public class WispController : MonoBehaviour {
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(Input.mousePosition + " / " + hit.point);
                 goal = hit.point;
-                // goal = hit.point;
-                //pnav.destination = hit.point;
             }
         }
-        Debug.Log("lol1");
     }
 
     void FixedUpdate()
@@ -46,23 +41,26 @@ public class WispController : MonoBehaviour {
         {
             transform.position = Vector3.MoveTowards(pt.position, goal, speed * Time.deltaTime);
         }
-        Debug.Log("lol2");
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.isTrigger)
         {
-            player_attach = Instantiate(Resources.Load("Player") as GameObject);            
+            player_attach = Instantiate(Resources.Load("Player") as GameObject);
+            player_attach.GetComponent<Transform>().Rotate(new Vector3(90.0f,0.0f,0.0f));
             player_attach.name = "Player_Selected";
             player_attach.GetComponent<Renderer>().material = other.GetComponent<HeroSelectorController>().HeroTarget.GetComponent<Renderer>().material;
             Camera.main.GetComponent<GameControl>().camtarget = player_attach.name;
             Camera.main.fieldOfView = 60.0f;
             Vector3 temp = GameObject.Find("Spawn_City").GetComponent<Transform>().position;
-            temp.y += player_attach.GetComponent<Transform>().localScale.y;
-            Debug.Log(temp);
-            player_attach.GetComponent<Transform>().position = temp;
+            temp.y += player_attach.GetComponent<Transform>().lossyScale.y*2;
+
+            player_attach.GetComponent<NavMeshAgent>().Warp(temp);
             this.enabled = false;
+
+            EnemyControl en = GameObject.Find("Enemy").GetComponent<EnemyControl>();
+            en.StartMoving();
         }
     }
     

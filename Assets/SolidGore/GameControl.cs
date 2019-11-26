@@ -11,7 +11,7 @@ public class GameControl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
         campos = GameObject.Find(camtarget).GetComponent<Transform>().position;
         campos.y += 50;
         campos.z -= 50; 
